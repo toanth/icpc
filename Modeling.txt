@@ -1,7 +1,0 @@
-- Anwendungen Max Flow:
-	-Max Flow/Min Cut Theorem
-- Sonderfälle
-	- Multi-Source/Multi-Sink + Bsp
-	- Vertex Capacitiy + Bsp S.168 F-4.28
-- Modeling
-	- Bsp S.168 4.6.6
