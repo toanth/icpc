@@ -1,0 +1,14 @@
+Def Netzwerk
+	-> quelle, senke Knoten
+	-> Knoten haben kapazität
+	
+Fluss: fkt F:E->R+ weist jeder kante einen Flusswert zu
+	-> Kapazitätskonfirmation
+	-> flusserhalt
+	-> Wert
+	-> Exzess
+	
+Aufgaben zu Flüssen
+	-> Schwierigkeit im erkennen der Aufgaben 
+	-> tauchen seit 2013 auf, zählen zu den entscheider Problemen. 
+	-> beispielaufgabe zum erkennen des Problemprinzips
