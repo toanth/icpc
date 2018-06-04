@@ -1,0 +1,344 @@
+%% LaTeX-Beamer template for KIT design
+%% by Erik Burger, Christian Hammer
+%% title picture by Klaus Krogmann
+%%
+%% version 2.1
+%%
+%% mostly compatible to KIT corporate design v2.0
+%% http://intranet.kit.edu/gestaltungsrichtlinien.php
+%%
+%% Problems, bugs and comments to
+%% burger@kit.edu
+
+\documentclass[18pt]{beamer}
+
+%% SLIDE FORMAT
+
+% use 'beamerthemekit' for standard 4:3 ratio
+% for widescreen slides (16:9), use 'beamerthemekitwide'
+
+\usepackage{templates/beamerthemekit}
+% \usepackage{templates/beamerthemekitwide}
+\usepackage{graphicx}
+%% TITLE PICTURE
+
+% if a custom picture is to be used on the title page, copy it into the 'logos'
+% directory, in the line below, replace 'mypicture' with the 
+% filename (without extension) and uncomment the following line
+% (picture proportions: 63 : 20 for standard, 169 : 40 for wide
+% *.eps format if you use latex+dvips+ps2pdf, 
+% *.jpg/*.png/*.pdf if you use pdflatex)
+
+%\titleimage{mypicture}
+
+%% TITLE LOGO
+
+% for a custom logo on the front page, copy your file into the 'logos'
+% directory, insert the filename in the line below and uncomment it
+
+%\titlelogo{mylogo}
+
+% (*.eps format if you use latex+dvips+ps2pdf,
+% *.jpg/*.png/*.pdf if you use pdflatex)
+
+%% TikZ INTEGRATION
+
+% use these packages for PCM symbols and UML classes
+\usepackage{templates/tikzkit}
+\usepackage{templates/tikzuml}
+
+% the presentation starts here
+
+\title[Graphen 3]{ICPC}
+\subtitle{Graphen 3}
+\author{Tobias, Julian, Jakob, Tobias}
+
+\institute{ITI Wagner, IPD Tichy}
+
+% Bibliography
+
+\usepackage[citestyle=authoryear,bibstyle=numeric,hyperref,backend=biber]{biblatex}
+\addbibresource{templates/example.bib}
+\bibhang1em
+
+\begin{document}
+	
+	% change the following line to "ngerman" for German style date and logos
+	\selectlanguage{ngerman}
+	
+	%title page
+	\begin{frame}
+	\titlepage
+\end{frame}
+
+%table of contents
+\begin{frame}{Outline/Gliederung}
+\tableofcontents
+\end{frame}
+
+\section{Tobias}
+\begin{frame}{Definiton Netzwerk}
+\begin{itemize}
+\item Quell- und  Senk- Knoten
+\item Knoten haben Kapazit\"at
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Fluesse}
+\begin{itemize}
+\item fkt F:E-$>$R weist jeder Kante einen Flusswert zu
+\item Kapazit\"atskonfirmation
+\item Flusserhalt
+\item Wert eines Flusses
+\item Exzes
+\item je definiton, kurze erkl\"areung ggf. an einem Bild
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Probleme zu Fl\"ussen}
+\begin{itemize}
+\item Schwierigeit im Erkennen der Aufgaben
+\item tauchen seit 2013 wieder auf, zählen zu "decider" Problemen
+\item eine beilspielaufgabe vorstellen, erkl\"aren warum das eine Flussaufgabe ist
+\end{itemize}
+\end{frame}
+
+\section{Jakob}
+\begin{frame}{Augmentierender/erweiternder Weg}
+\begin{itemize}
+\item Erkl\"arung augmentierender/erweiternder Weg
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ford-Fulkerson + Bsp}
+\begin{itemize}
+\item Erklaerung Ford-Fulkerson
+\end{itemize}
+\begin{figure}
+\includegraphics[width = 0.5\textwidth]{img/Jakob_Ford.jpg}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Ford-Fulkerson - Warum schlecht}
+\begin{itemize}
+\item Laufzeit - nicht benutzen
+\end{itemize}
+\begin{figure}
+\includegraphics[width = 0.7\textwidth]{img/Jakob_Ford2.jpg}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Edomnd-Karp Algorithmus}
+\begin{itemize}
+\item Pseudocode + Beispiel
+\end{itemize}
+\begin{figure}
+\includegraphics[width = \textwidth]{img/Jakob_Edmond.jpg}
+\end{figure}
+
+\begin{itemize}
+\item Implementierungsdetails
+\end{itemize}
+\end{frame}
+
+
+\section{Julian}
+\begin{frame}{Min-Cut}
+\begin{block}{Min-Cut}
+
+\begin{itemize}
+\item Definiere Schnitt \(C = (S-Komponente, T-Komponente)\) als Partition von \(V \in G \), wobei \(s \in S-Komponente\) und \(t \in T-Komponente\) 
+\item Weiter sei die Schnittmenge \(c = \{(u, v) \in E | u \in S-Komponente \land v \in T-Komponente\}\)
+\item W\"ahle \(c\) so, dass Max Flow von \(s\) nach \(t\) 0 ist, f\"ur \(E'=E\setminus c\) 
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Max-Flow-Min-Cut-Theorem}
+\begin{block}{Max-Flow-Min-Cut-Theorem}
+\begin{itemize}
+\item Ein maximaler Fluss im Netzwerk hat genau den Wert eines minimalen Schnitts.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Max-Flow-Min-Cut}
+\begin{itemize}
+\item Bsp.:
+\end{itemize}
+\begin{center}
+\begin{tikzpicture}[node distance=2cm, auto, thick]
+\node[state, fill=lightgray] (s) {$s$};
+\node[state, right=of s] (q0) {$q_0$};
+\node[state, below=of s] (q1) {$q_1$};
+\node[state, below=of q0, fill=lightgray] (t) {$t$};
+
+\path (s) edge[->,bend left = 10] node {30} (q0)
+(s) edge[->,bend left = 10] node {70} (q1)
+(q0) edge[->,bend left = 10] node {30} (s)
+(q0) edge[->,bend left = 10] node {5} (q1)
+(q0) edge[->,bend left = 10] node {70} (t)
+(q1) edge[->,bend left = 10] node {70} (s)
+(q1) edge[->,bend left = 10] node {5} (q0)
+(q1) edge[->,bend left = 10] node {25} (t)
+(t) edge[->,bend left = 10] node {70} (q0)
+(t) edge[->,bend left = 10] node {25} (q1);
+\end{tikzpicture}
+\begin{tikzpicture}[node distance=2cm, auto, thick]
+\node[state, fill=lightgray] (s) {$s$};
+\node[state, right=of s] (q0) {$q_0$};
+\node[state, below=of s] (q1) {$q_1$};
+\node[state, below=of q0, fill=lightgray] (t) {$t$};
+
+\path (s) edge[->,bend left = 10, dashed, color=blue] node {0} (q0)
+(s) edge[->,bend left = 10, dashed] node {40} (q1)
+(q0) edge[->,bend left = 10] node {60} (s)
+(q0) edge[->,bend left = 10] node {10} (q1)
+(q0) edge[->,bend left = 10, dashed] node {35} 	(t)
+(q1) edge[->,bend left = 10] node {100} (s)
+(q1) edge[->,bend left = 10, dashed, color=blue] node {0} (q0)
+(q1) edge[->,bend left = 10, dashed, color=blue] node {0} (t)
+(t) edge[->,bend left = 10] node {105} (q0)
+(t) edge[->,bend left = 10] node {50} (q1);
+\end{tikzpicture}
+\end{center}
+\begin{itemize}
+\item Hier
+\begin{itemize}
+\item \(C=(\{s,q_1\}, \{t, q_0\})\)
+\item \(c=\{(s,q_0), (q_1,q_0), (q_1, t)\}\) 
+\end{itemize} 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Multi-Quelle/Multi-Abfluss}
+\begin{itemize}
+\item Gegeben sei folgende Situation:
+\end{itemize}
+\begin{center}
+\begin{tikzpicture}[auto, thick]
+\node[state, fill=lightgray] (s1) {$s$};
+\node[state, below=of s, fill=lightgray] (s2) {$s$};
+\node[state] (q1) at (2,-1) {};
+\node[state, fill=lightgray] (t1) at (4,0) {$t$};
+\node[state, below=of t1, fill=lightgray] (t2) {$t$};
+
+\path (s1) edge[->] node {} (q1)
+(s2) edge[->] node {} (q1)
+(q1) edge[->] node {} (t1)
+(q1) edge[->] node {} (t2);
+\end{tikzpicture}
+\end{center}
+\begin{itemize}
+\item Problem: Max-Flow Algorithmus kann nur mit einer Quelle und einer Senke arbeiten.
+\item L\"osung: Ertelle Super-Quelle und Super-Senke und verbinde alle Quellen und Senken mit Kantengewicht $\infty$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Multi-Quelle/Multi-Abfluss L\"osung}
+\begin{center}
+\begin{tikzpicture}[auto, thick]
+\node[state, fill=lightgray] (ss) at (-2,-1) {$ss$};
+\node[state] (s1) {$s$};
+\node[state, below=of s] (s2) {$s$};
+\node[state] (q1) at (2,-1) {};
+\node[state] (t1) at (4,0) {$t$};
+\node[state, below=of t1] (t2) {$t$};
+\node[state, fill=lightgray] (st) at (6, -1) {$st$};
+
+\path (s1) edge[->] node {} (q1)
+(s2) edge[->] node {} (q1)
+(q1) edge[->] node {} (t1)
+(q1) edge[->] node {} (t2)
+(ss) edge[->] node {$\infty$} (s1)
+(ss) edge[->] node {$\infty$} (s2)
+(t1) edge[->] node {$\infty$} (st)
+(t2) edge[->] node {$\infty$} (st);
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+
+\begin{frame}{Knotenkapazit\"at}
+\begin{itemize}
+\item Gegeben sind Knoten mit Kapazit\"at.
+\item Bsp.:
+\end{itemize}
+\begin{center}
+\begin{tikzpicture}[auto, thick]
+\node[state] (V) {$V|7$};
+
+\path (V) edge[->] node {5} (1.5,0)
+(-1, 1) edge[->] node {10} (V)
+(-1, -1) edge[->] node {4} (V);
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}{Knotenkapazit\"at}
+\begin{itemize}
+\item Gegeben sind Knoten mit Kapazit\"at.
+\item Bsp.:
+\end{itemize}
+\begin{center}
+\begin{tikzpicture}[auto, thick]
+\node[state] (V1) {$V_{in}$};
+\node[state, right=of V1] (V2) {$V_{out}$};
+
+\path (V1) edge[->] node {7} (V2)
+(-1, 1) edge[->] node {10} (V1)
+(-1, -1) edge[->] node {4} (V1)
+(V2) edge[->] node {5} (3.5, 0);
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}{Modelierung}
+\begin{itemize}
+\item Probleme der Erkennung eines Max Flow Problems
+\item Herleiten einer beispielhaften l\"osung einer Modellierung anhand von UVa 11380
+\end{itemize}
+\end{frame}
+
+
+\section{Tobias T}
+\begin{frame}{Bipartiter Graph}
+\begin{itemize}
+\item Bipartiter Graph
+\end{itemize}
+\begin{figure}
+\includegraphics[width = 0.5\textwidth] {img/TobiasT_Bipartit.jpg}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Matching}
+\begin{itemize}
+\item Definitionen: Matching, maximales Matching, kardinalit\"atsmaximales Matching, perfektes Matching
+\end{itemize}
+\begin{figure}
+\includegraphics[width = 0.5\textwidth]{img/TobiasT_Matching.jpg}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Laufzeit}
+\begin{itemize}
+\item Kurz auf Laufzeit eingehen
+\item Beispiel: Primzahlen (Competitive Programming 3, Seite 180)
+\item Definitionen: Max Independent Set, Min Vertex Cover, K\"onigs‘ Theorem: |Min Vertex Cover| = |größtes Matching|
+\end{itemize}
+\begin{figure}
+\includegraphics[width = 0.2\textwidth] {img/TobiasT_Laufzeit.jpg}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Modelierung}
+\begin{itemize}
+\item Beispiel: Guardian of Decency (Competitive Programming 3, Seite 182)
+\item (Je nach verbleibender Zeit:) noch mehr Graphentheorie: bipartit $< == >$ keine ungeraden Kreise, ...
+\end{itemize}
+\end{frame}
+
+\end{document}
