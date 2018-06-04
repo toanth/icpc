@@ -295,13 +295,178 @@
 \end{center}
 \end{frame}
 
-\begin{frame}{Modelierung}
+\begin{frame}{Modellierung}
 \begin{itemize}
-\item Probleme der Erkennung eines Max Flow Problems
-\item Herleiten einer beispielhaften l\"osung einer Modellierung anhand von UVa 11380
+\item Erkennen eines Netzwerkfluss-Problems nicht immer einfach
+\pause
+\item Was hilft?
+\begin{itemize}
+\pause
+\item \"Ubung
+\item \"Ubung
+\item ...
+\end{itemize}
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Modellierung - Beispiel}
+\begin{itemize}
+\item Situation: Die Titanic ist gesunken. Es soll ermittelt werden wie viele Menschen gerettet werden k\"onnen.
+\item Eingabe: X, Y, P mit X,Y Dimension der Fl\"ache (\(1 \leq X,Y \leq 30\)) und P (\(P \leq 10\)) die Anzahl von Personen, welche gleichzeitig auf ein Holzbrett k\"onnen.
+\end{itemize}
+\begin{center}
+\begin{tabular}{c|l}
+Symbol & Bedeutung \\
+\hline
+* & Menschen auf Treibeis \\
+\(\sim\) & Eiskaltes Wasser \\
+. & Treibeis \\
+@ & Gro\ss er Eisberg \\
+\# & Gro\ss es Holzbrett \\
+\end{tabular}
+\end{center}
+\end{frame}
+
+\begin{frame}{Modellierung - Beispiel}
+\begin{itemize}
+\item Gegeben sei nun folgende Eingabe:
+\end{itemize}
+\begin{center}
+\begin{tabular}{cccc}
+* & \(\sim\) & \(\sim\) & \# \\
+. & . & . & @ \\
+. & \(\sim\) & . & * \\
+\end{tabular}
+\end{center}
+\begin{itemize}
+\pause\item Wandle in Graphen um...
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Modellierung - Beispiel}
+\begin{center}
+\begin{tikzpicture}[auto, thick]
+\node[state] (1) {$*$};
+\node[state, right=of 1] (2) {\(\sim\)};
+\node[state, right=of 2] (3) {\(\sim\)};
+\node[state, right=of 3] (4) {\#};
+\node[state, below=of 1] (5) {$.$};
+\node[state, right=of 5] (6) {$.$};
+\node[state, right=of 6] (7) {$.$};
+\node[state, right=of 7] (8) {@};
+\node[state, below=of 5] (9) {$.$};
+\node[state, right=of 9] (10) {\(\sim\)};
+\node[state, right=of 10] (11) {$.$};
+\node[state, right=of 11] (12) {$*$};
+\end{tikzpicture}
+\end{center}
+\begin{itemize}
+\pause
+\item Verbinde alle Knoten, \"uber die ein Weg m\"oglich ist...
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Modellierung - Beispiel}
+\begin{center}
+\begin{tikzpicture}[auto, thick]
+\node[state] (1) {$*$};
+\node[state, right=of 1] (2) {\(\sim\)};
+\node[state, right=of 2] (3) {\(\sim\)};
+\node[state, right=of 3] (4) {\#};
+\node[state, below=of 1] (5) {$.$};
+\node[state, right=of 5] (6) {$.$};
+\node[state, right=of 6] (7) {$.$};
+\node[state, right=of 7] (8) {@};
+\node[state, below=of 5] (9) {$.$};
+\node[state, right=of 9] (10) {\(\sim\)};
+\node[state, right=of 10] (11) {$.$};
+\node[state, right=of 11] (12) {$*$};
+
+\path (1) edge[-] node {} (5)
+(5) edge[-] node {} (6)
+(5) edge[-] node {} (9)
+(6) edge[-] node {} (7)
+(7) edge[-] node {} (8)
+(7) edge[-] node {} (11)
+(8) edge[-] node {} (4)
+(8) edge[-] node {} (12);
+\end{tikzpicture}
+\end{center}
+\begin{itemize}
+\pause
+\item F\"uge Knotengewichte hinzu...
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Modellierung - Beispiel}
+\begin{center}
+\begin{tikzpicture}[auto, thick]
+\node[state] (1) {$*|1$};
+\node[state, right=of 1] (2) {\(\sim\)};
+\node[state, right=of 2] (3) {\(\sim\)};
+\node[state, right=of 3] (4) {\# $|1000$};
+\node[state, below=of 1] (5) {$.|1$};
+\node[state, right=of 5] (6) {$.|1$};
+\node[state, right=of 6] (7) {$.|1$};
+\node[state, right=of 7] (8) {@$|1000$};
+\node[state, below=of 5] (9) {$.|1$};
+\node[state, right=of 9] (10) {\(\sim\)};
+\node[state, right=of 10] (11) {$.|1$};
+\node[state, right=of 11] (12) {$*|1$};
+
+\path (1) edge[-] node {} (5)
+(5) edge[-] node {} (6)
+(5) edge[-] node {} (9)
+(6) edge[-] node {} (7)
+(7) edge[-] node {} (8)
+(7) edge[-] node {} (11)
+(8) edge[-] node {} (4)
+(8) edge[-] node {} (12);
+\end{tikzpicture}
+\end{center}
+\begin{itemize}
+\pause
+\item Verbinde alle Menschen mit s und alle Holzbretter mit t...
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Modellierung - Beispiel}
+\begin{center}
+\begin{tikzpicture}[auto, thick]
+\node[state] (1) {$*|1$};
+\node[state, right=of 1] (2) {\(\sim\)};
+\node[state, right=of 2] (3) {\(\sim\)};
+\node[state, right=of 3] (4) {\# $|1000$};
+\node[state, below=of 1] (5) {$.|1$};
+\node[state, right=of 5] (6) {$.|1$};
+\node[state, right=of 6] (7) {$.|1$};
+\node[state, right=of 7] (8) {@$|1000$};
+\node[state, below=of 5] (9) {$.|1$};
+\node[state, right=of 9] (10) {\(\sim\)};
+\node[state, right=of 10] (11) {$.|1$};
+\node[state, right=of 11] (12) {$*|1$};
+
+\path (1) edge[-] node {} (5)
+(5) edge[-] node {} (6)
+(5) edge[-] node {} (9)
+(6) edge[-] node {} (7)
+(7) edge[-] node {} (8)
+(7) edge[-] node {} (11)
+(8) edge[-] node {} (4)
+(8) edge[-] node {} (12);
+
+\node[state, left=of 5] (s) {$s$};
+\node[state, right=of 8] (t) {$t$};
+
+\path (s) edge[->] node {1} (1)
+(s) edge[->] node {1} (12)
+(4) edge[->] node {P} (t);
+\end{tikzpicture}
+\end{center}
+\begin{itemize}
+\item Bem.: Knotengewichte m\"ussen noch aufgel\"ost werden
+\end{itemize}
+\end{frame}
 
 \section{Tobias T}
 \begin{frame}{Bipartiter Graph}
