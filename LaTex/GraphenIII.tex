@@ -91,7 +91,7 @@
 		\begin{tikzpicture}[node distance=2cm, auto, thick]
 		
 			
-			\only<1>{\node[state] (s) {$q_1$};
+			\only<1>{\node[state] (s) {$q_1$}; 
 				\node[state, above right = of s] (q0) {$q_0$};
 				\node[state, below right = of s] (q1) {$q_3$};
 				\node[state, below right = of q0] (t) {$q_2$};}
@@ -262,7 +262,7 @@ Frage: Wie kann P gefunden werden?
 \end{frame}
 
 
-\section{Julian}
+\section{Min-Cut}
 \begin{frame}{Min-Cut}
 \begin{block}{Min-Cut}
 
@@ -331,6 +331,7 @@ Frage: Wie kann P gefunden werden?
 \end{itemize}
 \end{frame}
 
+\section{Sonderf\"alle}
 \begin{frame}{Multi-Quelle/Multi-Abfluss}
 \begin{itemize}
 \item Gegeben sei folgende Situation:
@@ -378,7 +379,6 @@ Frage: Wie kann P gefunden werden?
 \end{center}
 \end{frame}
 
-
 \begin{frame}{Knotenkapazit\"at}
 \begin{itemize}
 \item Gegeben sind Knoten mit Kapazit\"at.
@@ -413,6 +413,7 @@ Frage: Wie kann P gefunden werden?
 \end{center}
 \end{frame}
 
+\section{Max-Flow Modellierung}
 \begin{frame}{Modellierung}
 \begin{itemize}
 \item Erkennen eines Netzwerkfluss-Problems nicht immer einfach
@@ -586,7 +587,7 @@ Symbol & Bedeutung \\
 \end{itemize}
 \end{frame}
 
-\section{Tobias T}
+\section{Bipartite Matching}
 \begin{frame}{Bipartiter Graph}
 \begin{block}{Bipartiter Graph}
 \begin{itemize}
