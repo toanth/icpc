@@ -20,6 +20,7 @@
 \usepackage{templates/beamerthemekit}
 % \usepackage{templates/beamerthemekitwide}
 \usepackage{graphicx}
+\usepackage{csquotes}
 %% TITLE PICTURE
 
 % if a custom picture is to be used on the title page, copy it into the 'logos'
@@ -46,6 +47,9 @@
 % use these packages for PCM symbols and UML classes
 \usepackage{templates/tikzkit}
 \usepackage{templates/tikzuml}
+\usepackage{amsmath}
+\usepackage[ruled]{algorithm2e}
+
 % the presentation starts here
 
 \title[Graphen 3]{ICPC}
@@ -59,6 +63,10 @@
 \usepackage[citestyle=authoryear,bibstyle=numeric,hyperref,backend=biber]{biblatex}
 \addbibresource{templates/example.bib}
 \bibhang1em
+
+\SetKwRepeat{Do}{do}{while}
+\SetKwProg{Fn}{Function}{}{}
+
 
 \begin{document}
 	
@@ -146,43 +154,94 @@
 	\end{itemize}
 \end{frame}
 
-\section{Jakob}
-\begin{frame}{Augmentierender/erweiternder Weg}
+\section{Max-Flow Algorithmen}
+\begin{frame}{Bestimmung des maximalen Flusses}
+Idee:
 \begin{itemize}
-\item Erkl\"arung augmentierender/erweiternder Weg
+	\item Starte mit dem leeren Fluss
+	\item Bestimme erweiternden Pfad (augmenting path) P, auf dem der Fluss von s nach t vergr\"o{\ss}erbar ist
+	\item Erweitere die L\"osung um Pfad P
+	\item Wiederhole so oft, wie es einen passenden Pfad P gibt
+\end{itemize}
+Frage: Wie kann P gefunden werden?
+\end{frame}
+
+\subsection{Ford-Fulkerson}
+\begin{frame}{Ford-Fulkerson Algorithmus}
+\begin{itemize}
+	\item Greedy Algorithmus ver\"offentlicht in 1956 von L. R. Ford, Jr. und D. R. Fulkerson
+	\item Verwendet Tiefensuche um den erweiternden Pfad P zu bestimmen
+	\item Die L\"osung wird um P erweitert indem, 
+	\begin{itemize}
+		\item die geringste Kapazit\"at f einer Kante in P bestimmt wird
+		\item die Kapazit\"aten aller Kanten in P um f verringert werden
+		\item die Kapazit\"aten aller Gegenkanten um f erh\"oht werden
+		\item der maximale Fluss um f erh\"oht wird
+	\end{itemize}  
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Ford-Fulkerson + Bsp}
-\begin{itemize}
-\item Erklaerung Ford-Fulkerson
-\end{itemize}
+\begin{frame}{Ford-Fulkerson Algorithmus}
 \begin{figure}
-\includegraphics[width = 0.5\textwidth]{img/Jakob_Ford.jpg}
+\includegraphics[width = \textwidth]{img/Jakob_Ford.pdf}
 \end{figure}
 \end{frame}
 
 
-\begin{frame}{Ford-Fulkerson - Warum schlecht}
-\begin{itemize}
-\item Laufzeit - nicht benutzen
-\end{itemize}
+\begin{frame}{Ford-Fulkerson Algorithmus}
 \begin{figure}
-\includegraphics[width = 0.7\textwidth]{img/Jakob_Ford2.jpg}
+\includegraphics[width = \textwidth]{img/Jakob_Ford2.pdf}
+\end{figure}
+\begin{itemize}
+	\item Im Worst-Case wird der maximale Fluss pro Iteration nur um 1 erh\"oht
+	\item[$\Rightarrow$]  Laufzeit in $\mathcal O(|f^*|\cdot |E|)$, wobei $|f^*|$ der Wert des maximalen Flusses beschreibt
+	\item Deshalb \textbf{nicht} f\"ur ICPC-Aufgaben geeignet!
+\end{itemize}
+\end{frame}
+
+\subsection{Edmonds-Karp}
+\begin{frame}{Edmonds-Karp Algorithmus}
+\begin{itemize}
+\item 1972 von J. Edmonds und R. M. Karp ver\"offentlicht
+\item Verwendet Breitensuche um den k\"urzesten erweiternden Pfad P zu bestimmen
+\item Erweiterung der L\"osung um P analog zu Ford-Fulkerson
+\item Die L\"ange des erweiternden Pfades ist monoton steigend
+\item Es sind maximal $|V|\cdot |E|$ Iterationen notwendig
+\item[$\Rightarrow$] Laufzeit in $\mathcal O(|V| \cdot |E|^2)$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Edmonds-Karp Implementierung}
+\SetEndCharOfAlgoLine{}
+\begin{algorithm}[H]
+	\Fn{Max-Flow (G = (V, E), s, t, c)}{
+		$maxFlow = 0 $ \;
+		\Do{P exists}{
+			find augmenting path P using BFS\;
+			$ f = min (c(u,v) | (u,v) \in P)$\;
+			\ForEach{$(u,v) \in P$}{
+				 c(u,v) -= f  \;
+				 c(v,u) += f  \;
+			}
+			maxFlow += f \;
+		}
+		\textbf{return} maxFlow \;
+	}
+	\caption{Edmonds-Karp}
+\end{algorithm}
+\end{frame}
+
+\begin{frame}{Edmonds-Karp Algorithmus}
+\begin{figure}
+	\includegraphics[width = \textwidth]{img/Jakob_Edmond.pdf}
 \end{figure}
 \end{frame}
 
-
-\begin{frame}{Edomnd-Karp Algorithmus}
+\begin{frame}{Edmonds-Karp Implementierungsdetails}
 \begin{itemize}
-\item Pseudocode + Beispiel
-\end{itemize}
-\begin{figure}
-\includegraphics[width = \textwidth]{img/Jakob_Edmond.jpg}
-\end{figure}
-
-\begin{itemize}
-\item Implementierungsdetails
+	\item In Adjazenzliste neben Zielknoten auch Kapazit\"at und Verweis auf die R\"uckkante speichern
+	\item In Breitensuche nur Kanten mit positiver Kapazit\"at ber\"ucksichtigen
+	\item Breitensuche abbrechen, sobald t erreicht wurde
 \end{itemize}
 \end{frame}
 
