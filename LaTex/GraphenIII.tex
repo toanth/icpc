@@ -48,6 +48,7 @@
 \usepackage{templates/tikzkit}
 \usepackage{templates/tikzuml}
 \usepackage{amsmath}
+\usepackage{MnSymbol}
 \usepackage[ruled]{algorithm2e}
 
 % the presentation starts here
@@ -572,25 +573,236 @@ Symbol & Bedeutung \\
 
 \section{Tobias T}
 \begin{frame}{Bipartiter Graph}
+\begin{block}{Bipartiter Graph}
 \begin{itemize}
-\item Bipartiter Graph
+\item Ein Graph G = (V, E) hei{\ss}t \textbf{bipartit}, wenn sich $V = A \cupdot B$ in 2 disjunkte Knotenmengen A und B aufteilen l\"asst,
+sodass zwischen den Knoten innerhalb der Teilmengen keine Kanten existieren.
 \end{itemize}
-\begin{figure}
-\includegraphics[width = 0.5\textwidth] {img/TobiasT_Bipartit.jpg}
-\end{figure}
+\end{block}
+
+\begin{center}
+\begin{tikzpicture}[auto, thick]
+\node[state] (1) at (1, 1) {};
+\node[state] (2) at (1, 2) {};
+\node[state] (3) at (1, 3) {};
+\node[state] (4) at (1, 4) {};
+\node[state] (5) at (5, 1) {};
+\node[state] (6) at (5, 2) {};
+\node[state] (7) at (5, 3) {};
+
+\path
+(1) edge[-] node {} (5)
+(2) edge[-] node {} (5)
+(2) edge[-] node {} (6)
+(3) edge[-] node {} (6)
+(3) edge[-] node {} (7)
+(4) edge[-] node {} (6)
+(4) edge[-] node {} (7);
+
+\draw[thick, dashed, color=red] (0,0) rectangle (2,5);
+\draw[thick, dashed, color=green] (4,0) rectangle (6,4);
+
+\end{tikzpicture}
+\end{center}
 \end{frame}
 
 \begin{frame}{Matching}
+\begin{block}{Matching}
 \begin{itemize}
-\item Definitionen: Matching, maximales Matching, kardinalit\"atsmaximales Matching, perfektes Matching
+\item Sei $G = (V, E)$ ein Graph. Ein \textbf{Matching} $M \subseteq E$ ist eine Menge paarweise knotendisjunkter Kanten,
+d.h. $\forall e_{1} = \{u_{1}, v_{1}\}, e_{2} = \{u_{2}, v_{2}\} \in M, e_{1} \neq e_{2}: e_{1} \cap e_{2} = \emptyset$
+\item Analog f\"ur gerichtete Graphen
 \end{itemize}
-\begin{figure}
-\includegraphics[width = 0.5\textwidth]{img/TobiasT_Matching.jpg}
-\end{figure}
+\end{block}
+
+\pause
+
+\begin{block}{Maximales Matching}
+\begin{itemize}
+\item Ein Matching hei{\ss}t \textbf{maximales Matching}, wenn nicht durch Hinzuf\"ugen einer Kante ein gr\"o{\ss}eres Matching erstellt werden kann.
+(D.h. es gibt keine Kante $e = \{u, v\}$, wobei $u$ und $v$ nicht Teil des Matchings sind.)
+\end{itemize}
+\end{block}
 \end{frame}
 
+\begin{frame}{Perfektes Matching}
+\begin{block}{Kardinalit\"atsmaximales Matching}
+\begin{itemize}
+\item Ein Matching $M \subseteq E$ hei{\ss }t \textbf{kardinalit\"atsmaximales Matching}, wenn es kein gr\"o{\ss}eres Matching gibt.
+(D.h. $\forall$ Matchings $M': |M| \geq |M'|$).
+\end{itemize}
+\end{block}
 
-\begin{frame}{Laufzeit}
+\pause
+
+\begin{block}{Perfektes Matching}
+\begin{itemize}
+\item Ein Matching $M$ hei{\ss}t \textbf{perfekt}, falls $2 * |M| = |V|$, d.h. jeder Knoten $v \in V$ kommt in $M$ vor.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Maximales Matching}
+\begin{center}
+\begin{tikzpicture}[auto, thick]
+\node[state] (1) at (3, 7) {};
+\node[state] (2) at (1, 5) {};
+\node[state] (3) at (3, 5) {};
+\node[state] (4) at (5, 5) {};
+\node[state] (5) at (1, 3) {};
+\node[state] (6) at (3, 3) {};
+\node[state] (7) at (5, 3) {};
+
+\path
+(1) edge[-] node {} (2)
+(1) edge[-] node {} (3)
+(1) edge[-] node {} (4)
+(2) edge[-] node {} (5)
+(3) edge[-] node {} (6)
+(4) edge[-] node {} (7)
+(5) edge[-, thick, color=red] node {} (6)
+(6) edge[-] node {} (7)
+(1) edge[-, thick, color=red] node {} (7);
+
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}{Perfektes Matching}
+\begin{center}
+\begin{tikzpicture}[auto, thick]
+\node[state] (1) at (3, 7) {};
+\node[state] (2) at (1, 5) {};
+\node[state] (3) at (3, 5) {};
+\node[state] (4) at (5, 5) {};
+\node[state] (5) at (1, 3) {};
+\node[state] (6) at (3, 3) {};
+\node[state] (7) at (5, 3) {};
+
+\path
+(1) edge[-] node {} (2)
+(1) edge[-] node {} (3)
+(1) edge[-] node {} (4)
+(2) edge[-, thick, color=red] node {} (5)
+(3) edge[-, thick, color=red] node {} (6)
+(4) edge[-, thick, color=red] node {} (7)
+(5) edge[-] node {} (6)
+(6) edge[-] node {} (7)
+(1) edge[-] node {} (7);
+
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}{Modellierung}
+\begin{itemize}
+\item Finden von kardinalit\"atsmaximalen Matchings in bipartiten Graphen $G = (V, E = A \cupdot B)$:
+	\begin{itemize}
+	\item Einf\"ugen von neuen Knoten $s$ und $t$
+	\item Einf\"ugen von Kanten zwischen $s$ und allen Knoten $v_{A} \in A$, und zwischen allen Knoten $v_{B} \in B$ und $t$.
+	\item Jede Kante im Graph (alte und neu eingef\"ugte) hat Kapazit\"at 1.
+	\item Berechnen des maximalen Flusses von $s$ nach $t$.
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Modellierung}
+\begin{center}
+\begin{tikzpicture}[auto, thick]
+\node[state] (2) at (3, 1) {};
+\node[state] (3) at (3, 3) {};
+\node[state] (4) at (3, 5) {};
+\node[state] (5) at (3, 7) {};
+\node[state] (6) at (6, 2) {};
+\node[state] (7) at (6, 4) {};
+\node[state] (8) at (6, 6) {};
+
+\path
+(2) edge[->] node {} (6)
+(3) edge[->] node {} (6)
+(3) edge[->] node {} (8)
+(4) edge[->] node {} (6)
+(4) edge[->] node {} (7)
+(4) edge[->] node {} (8)
+(5) edge[->] node {} (6)
+(5) edge[->] node {} (7)
+(5) edge[->] node {} (8);
+
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}{Modellierung}
+\begin{center}
+\begin{tikzpicture}[auto, thick]
+\node[state, fill=lightgray] (1) at (1, 4) {s};
+\node[state] (2) at (3, 1) {};
+\node[state] (3) at (3, 3) {};
+\node[state] (4) at (3, 5) {};
+\node[state] (5) at (3, 7) {};
+\node[state] (6) at (6, 2) {};
+\node[state] (7) at (6, 4) {};
+\node[state] (8) at (6, 6) {};
+\node[state, fill=lightgray] (9) at (8, 4) {t};
+
+\path
+(1) edge[->] node {} (2)
+(1) edge[->] node {} (3)
+(1) edge[->] node {} (4)
+(1) edge[->] node {} (5)
+(2) edge[->] node {} (6)
+(3) edge[->] node {} (6)
+(3) edge[->] node {} (8)
+(4) edge[->] node {} (6)
+(4) edge[->] node {} (7)
+(4) edge[->] node {} (8)
+(5) edge[->] node {} (6)
+(5) edge[->] node {} (7)
+(5) edge[->] node {} (8)
+(6) edge[->] node {} (9)
+(7) edge[->] node {} (9)
+(8) edge[->] node {} (9);
+
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}{Modellierung}
+\begin{center}
+\begin{tikzpicture}[auto, thick]
+\node[state, fill=lightgray] (1) at (1, 4) {s};
+\node[state] (2) at (3, 1) {};
+\node[state] (3) at (3, 3) {};
+\node[state] (4) at (3, 5) {};
+\node[state] (5) at (3, 7) {};
+\node[state] (6) at (6, 2) {};
+\node[state] (7) at (6, 4) {};
+\node[state] (8) at (6, 6) {};
+\node[state, fill=lightgray] (9) at (8, 4) {t};
+
+\path
+(1) edge[->] node {} (2)
+(1) edge[->, color=red] node {} (3)
+(1) edge[->, color=red] node {} (4)
+(1) edge[->, color=red] node {} (5)
+(2) edge[->] node {} (6)
+(3) edge[->, color=red] node {} (6)
+(3) edge[->] node {} (8)
+(4) edge[->] node {} (6)
+(4) edge[->, color=red] node {} (7)
+(4) edge[->] node {} (8)
+(5) edge[->] node {} (6)
+(5) edge[->] node {} (7)
+(5) edge[->, color=red] node {} (8)
+(6) edge[->, color=red] node {} (9)
+(7) edge[->, color=red] node {} (9)
+(8) edge[->, color=red] node {} (9);
+
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}{Beispiel}
 \begin{itemize}
 \item Kurz auf Laufzeit eingehen
 \item Beispiel: Primzahlen (Competitive Programming 3, Seite 180)
