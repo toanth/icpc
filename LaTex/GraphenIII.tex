@@ -83,31 +83,75 @@
 \tableofcontents
 \end{frame}
 
-\section{Tobias}
-\begin{frame}{Definiton Netzwerk}
-\begin{itemize}
-\item Quell- und  Senk- Knoten
-\item Knoten haben Kapazit\"at
-\end{itemize}
+\section{Einf\"uhrung}
+\begin{frame}{Einf\"uhrung}
+	\begin{figure}
+		\centering
+		\begin{tikzpicture}[node distance=2cm, auto, thick]
+		
+			
+			\only<1>{\node[state] (s) {$q_1$};
+				\node[state, above right = of s] (q0) {$q_0$};
+				\node[state, below right = of s] (q1) {$q_3$};
+				\node[state, below right = of q0] (t) {$q_2$};}
+			
+			\visible<2->{\node[state] (s) {$q_0$};
+				\node[state, above right = of s, fill=lightgray] (q0) {$s$};
+				\node[state, below right = of s, fill=lightgray] (q1) {$t$};
+				\node[state, below right = of q0] (t) {$q_1$};}
+			
+			\path 
+				(q0) edge[->,bend left = -20, left] node {30} (s)
+				(s) edge[->,bend left = -20, left] node {70} (q1)
+				%(q0) edge[->,bend left = 10] node {5} (q1)
+				(q0) edge[->,bend right = -20, right] node {60} (t)
+				(t) edge[->,bend right = -20, right] node {25} (q1);
+			\visible<3-8>{
+				\path(q0) edge[->, bend left = 20, red] node {30} (s);}
+			\visible<4-8>{
+				\path(s) edge[->, bend left = 20, red] node {30} (q1);}
+			\visible<5->{
+				\path(q0) edge[->, dashed,out=180, in=180, looseness=2, red, left] node {30} (q1);}
+			\visible<6-8>{
+				\path(q0) edge[->, bend right = 30, red] node {60} (t);}
+			\visible<7-8>{
+				\path(t) edge[->, bend right = 30, red] node {25} (q1);}
+			\visible<8->{
+				\path(q0) edge[->, dashed,out = 0, in = 0, looseness = 2, red, right] node {25} (q1);}
+			\visible<9->{
+				\path (t) edge[->, bend right = 10, black, above left] node {60} (s);}
+			\only<10>{
+				\path
+				(q0) edge[->, bend right = 10,  red, right] node {} (t)
+				(t) edge[->, bend left = 10,  red] node {} (s)
+				(s) edge[->, bend left = 10, red, right] node {} (q1);}
+			\visible<11->{
+				\path
+				(q0) edge[->, bend right = 10,  red, right] node {35} (t)
+				(t) edge[->, bend left = 10,  red, below left] node {60} (s)
+				(s) edge[->, bend left = 10, red, right] node {40} (q1);}
+			\visible<12->{
+				\path (q0) edge[->, dashed, red] node {35} (q1);}
+			
+		\end{tikzpicture}		
+	\end{figure}
+	
+	\centering
+	\only<1>{Gegeben gerichteter Graph}
+	\only<2>{s: source, t:sink}
+	\only<3>{Fluss}
+	\only<4>{Flusserhaltung} 
+	\only<5>{Wert eines s-t-Flusses}
+	\only<11>{Exzess: Werte entsprechend der Kantenkapazit\"at abz\"uglich bereits vorhandener Fl\"usse}
 \end{frame}
 
-\begin{frame}{Fluesse}
-\begin{itemize}
-\item fkt F:E-$>$R weist jeder Kante einen Flusswert zu
-\item Kapazit\"atskonfirmation
-\item Flusserhalt
-\item Wert eines Flusses
-\item Exzes
-\item je definiton, kurze erkl\"areung ggf. an einem Bild
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Probleme zu Fl\"ussen}
-\begin{itemize}
-\item Schwierigeit im Erkennen der Aufgaben
-\item tauchen seit 2013 wieder auf, zählen zu "decider" Problemen
-\item eine beilspielaufgabe vorstellen, erkl\"aren warum das eine Flussaufgabe ist
-\end{itemize}
+\begin{frame}{Flussprobleme}
+	\begin{itemize}
+		\visible<1->{\item Schwierigeit im Erkennen der Aufgaben}
+		\only<1>{\item[\,]Problem UVa xxx} % TD bspl aufgabe
+		\visible<2->{\item Seit 2013 vermehrtes vorkommen in contests}
+		\only<2>{\item[] decider Problem}
+	\end{itemize}
 \end{frame}
 
 \section{Max-Flow Algorithmen}
@@ -115,10 +159,15 @@
 Idee:
 \begin{itemize}
 	\item Starte mit dem leeren Fluss
-	\item Bestimme erweiternden Pfad (augmenting path) P, auf dem der Fluss von s nach t vergr\"o{\ss}erbar ist
-	\item Erweitere die L\"osung um Pfad P
-	\item Wiederhole so oft, wie es einen passenden Pfad P gibt
-\end{itemize}
+	\item Bestimme erweiternden Pfad (augmenting path) P
+	\begin{itemize}
+		\item[$\Rightarrow$] Ein erweiternder Pfad ist ein einfacher Pfad, der nur Kanten mit positiver Kapazit\"at enth\"alt
+	\end{itemize}
+	\item Erweitere die L\"osung um P
+	\item Wiederhole so oft, wie es einen passenden Pfad P gibt 
+\end{itemize} 
+\vspace{5mm}
+\pause 
 Frage: Wie kann P gefunden werden?
 \end{frame}
 
@@ -129,9 +178,13 @@ Frage: Wie kann P gefunden werden?
 	\item Verwendet Tiefensuche um den erweiternden Pfad P zu bestimmen
 	\item Die L\"osung wird um P erweitert indem, 
 	\begin{itemize}
+		\pause
 		\item die geringste Kapazit\"at f der Kanten in P bestimmt wird
+		\pause
 		\item die Kapazit\"aten aller Kanten in P um f verringert werden
+		\pause
 		\item die Kapazit\"aten aller Gegenkanten um f erh\"oht werden
+		\pause
 		\item der maximale Fluss um f erh\"oht wird
 	\end{itemize}  
 \end{itemize}
@@ -143,10 +196,16 @@ Frage: Wie kann P gefunden werden?
 \end{figure}
 \end{frame}
 
+\begin{frame}{Ford-Fulkerson Algorithmus}
+\begin{figure}
+	\includegraphics[width = \textwidth]{img/Jakob_Ford2.pdf}
+\end{figure}
+\end{frame}
+
 
 \begin{frame}{Ford-Fulkerson Algorithmus}
 \begin{figure}
-\includegraphics[width = \textwidth]{img/Jakob_Ford2.pdf}
+\includegraphics[width = \textwidth]{img/Jakob_Ford3.pdf}
 \end{figure}
 \begin{itemize}
 	\item Im Worst-Case wird der maximale Fluss pro Iteration nur um 1 erh\"oht
