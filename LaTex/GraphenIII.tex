@@ -129,7 +129,7 @@ Frage: Wie kann P gefunden werden?
 	\item Verwendet Tiefensuche um den erweiternden Pfad P zu bestimmen
 	\item Die L\"osung wird um P erweitert indem, 
 	\begin{itemize}
-		\item die geringste Kapazit\"at f einer Kante in P bestimmt wird
+		\item die geringste Kapazit\"at f der Kanten in P bestimmt wird
 		\item die Kapazit\"aten aller Kanten in P um f verringert werden
 		\item die Kapazit\"aten aller Gegenkanten um f erh\"oht werden
 		\item der maximale Fluss um f erh\"oht wird
@@ -170,11 +170,11 @@ Frage: Wie kann P gefunden werden?
 \begin{frame}{Edmonds-Karp Implementierung}
 \SetEndCharOfAlgoLine{}
 \begin{algorithm}[H]
-	\Fn{Max-Flow (G = (V, E), s, t, c)}{
+	\Fn{Max-Flow (G = (V, E), s, t $\in V$, $c: E \to \mathbb{R}^+$)}{
 		$maxFlow = 0 $ \;
 		\Do{P exists}{
 			find augmenting path P using BFS\;
-			$ f = min (c(u,v) | (u,v) \in P)$\;
+			$ f = min \{c(u,v) | (u,v) \in P\}$\;
 			\ForEach{$(u,v) \in P$}{
 				 c(u,v) -= f  \;
 				 c(v,u) += f  \;
@@ -196,7 +196,8 @@ Frage: Wie kann P gefunden werden?
 \begin{frame}{Edmonds-Karp Implementierungsdetails}
 \begin{itemize}
 	\item In Adjazenzliste neben Zielknoten auch Kapazit\"at und Verweis auf die R\"uckkante speichern
-	\item In Breitensuche nur Kanten mit positiver Kapazit\"at ber\"ucksichtigen
+	\item Nicht vorhandene R\"uckkanten mit 0 initialisieren und dem Graphen hinzuf\"ugen
+	\item Bei der Breitensuche nur Kanten mit positiver Kapazit\"at ber\"ucksichtigen
 	\item Breitensuche abbrechen, sobald t erreicht wurde
 \end{itemize}
 \end{frame}
