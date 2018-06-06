@@ -149,7 +149,6 @@
 \begin{frame}{Flussprobleme}
 	\begin{itemize}
 		\visible<1->{\item Schwierigeit im Erkennen der Aufgaben}
-		\only<1>{\item[\,]Proble UVa xxx} % TD bspl aufgabe
 		\visible<2->{\item Seit 2013 vermehrtes vorkommen in contests}
 		\only<2>{\item[] decider Problem}
 	\end{itemize}
@@ -160,10 +159,15 @@
 Idee:
 \begin{itemize}
 	\item Starte mit dem leeren Fluss
-	\item Bestimme erweiternden Pfad (augmenting path) P, auf dem der Fluss von s nach t vergr\"o{\ss}erbar ist
-	\item Erweitere die L\"osung um Pfad P
-	\item Wiederhole so oft, wie es einen passenden Pfad P gibt
-\end{itemize}
+	\item Bestimme erweiternden Pfad (augmenting path) P
+	\begin{itemize}
+		\item[$\Rightarrow$] Ein erweiternder Pfad ist ein einfacher Pfad, der nur Kanten mit positiver Kapazit\"at enth\"alt
+	\end{itemize}
+	\item Erweitere die L\"osung um P
+	\item Wiederhole so oft, wie es einen passenden Pfad P gibt 
+\end{itemize} 
+\vspace{5mm}
+\pause 
 Frage: Wie kann P gefunden werden?
 \end{frame}
 
@@ -174,9 +178,13 @@ Frage: Wie kann P gefunden werden?
 	\item Verwendet Tiefensuche um den erweiternden Pfad P zu bestimmen
 	\item Die L\"osung wird um P erweitert indem, 
 	\begin{itemize}
-		\item die geringste Kapazit\"at f einer Kante in P bestimmt wird
+		\pause
+		\item die geringste Kapazit\"at f der Kanten in P bestimmt wird
+		\pause
 		\item die Kapazit\"aten aller Kanten in P um f verringert werden
+		\pause
 		\item die Kapazit\"aten aller Gegenkanten um f erh\"oht werden
+		\pause
 		\item der maximale Fluss um f erh\"oht wird
 	\end{itemize}  
 \end{itemize}
@@ -188,10 +196,16 @@ Frage: Wie kann P gefunden werden?
 \end{figure}
 \end{frame}
 
+\begin{frame}{Ford-Fulkerson Algorithmus}
+\begin{figure}
+	\includegraphics[width = \textwidth]{img/Jakob_Ford2.pdf}
+\end{figure}
+\end{frame}
+
 
 \begin{frame}{Ford-Fulkerson Algorithmus}
 \begin{figure}
-\includegraphics[width = \textwidth]{img/Jakob_Ford2.pdf}
+\includegraphics[width = \textwidth]{img/Jakob_Ford3.pdf}
 \end{figure}
 \begin{itemize}
 	\item Im Worst-Case wird der maximale Fluss pro Iteration nur um 1 erh\"oht
@@ -215,11 +229,11 @@ Frage: Wie kann P gefunden werden?
 \begin{frame}{Edmonds-Karp Implementierung}
 \SetEndCharOfAlgoLine{}
 \begin{algorithm}[H]
-	\Fn{Max-Flow (G = (V, E), s, t, c)}{
+	\Fn{Max-Flow (G = (V, E), s, t $\in V$, $c: E \to \mathbb{R}^+$)}{
 		$maxFlow = 0 $ \;
 		\Do{P exists}{
 			find augmenting path P using BFS\;
-			$ f = min (c(u,v) | (u,v) \in P)$\;
+			$ f = min \{c(u,v) | (u,v) \in P\}$\;
 			\ForEach{$(u,v) \in P$}{
 				 c(u,v) -= f  \;
 				 c(v,u) += f  \;
@@ -241,7 +255,8 @@ Frage: Wie kann P gefunden werden?
 \begin{frame}{Edmonds-Karp Implementierungsdetails}
 \begin{itemize}
 	\item In Adjazenzliste neben Zielknoten auch Kapazit\"at und Verweis auf die R\"uckkante speichern
-	\item In Breitensuche nur Kanten mit positiver Kapazit\"at ber\"ucksichtigen
+	\item Nicht vorhandene R\"uckkanten mit 0 initialisieren und dem Graphen hinzuf\"ugen
+	\item Bei der Breitensuche nur Kanten mit positiver Kapazit\"at ber\"ucksichtigen
 	\item Breitensuche abbrechen, sobald t erreicht wurde
 \end{itemize}
 \end{frame}
