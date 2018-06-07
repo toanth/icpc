@@ -79,10 +79,6 @@
 	\titlepage
 \end{frame}
 
-%table of contents
-\begin{frame}{Outline/Gliederung}
-\tableofcontents
-\end{frame}
 \section{Einf\"uhrung}
 
 \subsection{Idee: Flussnetzwerk}
@@ -194,6 +190,11 @@ Frage: Wie kann $P$ gefunden werden?
 \begin{itemize}
 	\item Greedy-Algorithmus, ver\"offentlicht 1956 von L. R. Ford, Jr. und D. R. Fulkerson
 	\item Verwendet Tiefensuche, um den erweiternden Pfad $P$ zu bestimmen
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ford-Fulkerson Algorithmus}
+\begin{itemize}
 	\item Die L\"osung wird um $P$ erweitert, indem
 	\begin{itemize}
 		\pause
@@ -205,6 +206,14 @@ Frage: Wie kann $P$ gefunden werden?
 		\pause
 		\item der maximale Fluss um $f$ erh\"oht wird
 	\end{itemize}  
+	\pause
+	\item Kapazit\"aten der Gegenkanten werden erh\"oht, um Korrektheit des Algorithmus zu sichern
+	\pause
+	\begin{itemize}
+		\item[$\Rightarrow$] Dies erm\"oglicht, dass diese Gegenkanten in zuk\"unftigen erweiternden Pfaden enthalten sind
+		\pause
+		\item[$\Rightarrow$] Zuk\"unftige Iterationen k\"onnen den f\"alschlicherweise genutzten Fluss einer Vorw\"artskante wieder (teilweise) umkehren
+	\end{itemize}
 \end{itemize}
 \end{frame}
 
@@ -913,7 +922,7 @@ d.h. $\forall \{v, w\} = e \in E: \exists u \in U: u \in e$.
 \begin{itemize}
 	\item Damit zum Beispiel bipartit: Jeder Baum
 \end{itemize}
-\item Sei $G$ \textit{bipartit} mit $V = A \cupdot B$. Dann: $G$ hat \textit{perfektes Matching} $\Leftrightarrow \forall S \subset A: |N(S)| \geq |S|$
+\item Sei $G$ \textit{bipartit} mit $V = A \cdot B$. Dann: $G$ hat \textit{perfektes Matching} $\Leftrightarrow \forall S \subset A: |N(S)| \geq |S|$
 (Wobei die Nachbarn $N(S)$ alle zu einem Knoten $s \in S$ adjazenten Knoten sind).
 \item Es gibt asymptotisch bessere Algorithmen zum Finden maximaler Fl\"usse, zum Beispiel \textit{Dinitz} ($\mathcal{O}(|V|^{2} * |E|)$ oder Push-Relabel-Algorithmen
 \end{itemize}
