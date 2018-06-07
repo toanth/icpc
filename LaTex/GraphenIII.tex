@@ -83,9 +83,20 @@
 \begin{frame}{Outline/Gliederung}
 \tableofcontents
 \end{frame}
+\section{Einf\"urung}
 
-\section{Einf\"uhrung}
-\begin{frame}{Einf\"uhrung}
+\subsection{Idee}
+\begin{frame}{Idee: Flussnetzwerk}
+	\begin{itemize}
+		\visible<1->{\item Transport von Material von einer Quelle zu einer Quelle}
+		\visible<2->{\item Materialfluss durch Kan\"ale}  
+		\visible<3->{\item Mehrere Kan\"ale mit verschiedenen Kapazit\"aten}
+		\visible<4->{\item Kanten k\"onnen sich verzweigen und zusammenf\"ugen}
+	\end{itemize}
+\end{frame}
+
+\subsection{Definition}
+\begin{frame}{Definition}
 	\begin{figure}
 		\centering
 		\begin{tikzpicture}[node distance=2cm, auto, thick]
@@ -128,30 +139,35 @@
 				(s) edge[->, bend left = 10, red, right] node {} (q1);}
 			\visible<11->{
 				\path
-				(q0) edge[->, bend right = 10,  red, right] node {35} (t)
+				(q0) edge[->, bend right = 10,  red, right] node {35} (t);}
+			\visible<12->{
+				\path
 				(t) edge[->, bend left = 10,  red, below left] node {60} (s)
 				(s) edge[->, bend left = 10, red, right] node {40} (q1);}
-			\visible<12->{
+			\visible<13->{
 				\path (q0) edge[->, dashed, red] node {35} (q1);}
 			
 		\end{tikzpicture}		
 	\end{figure}
 	
 	\centering
-	\only<1>{Gegeben gerichteter Graph}
-	\only<2>{s: source, t: sink}
-	\only<3>{Fluss}
-	\only<4>{Flusserhaltung} 
-	\only<5>{Wert eines s-t-Flusses}
-	\only<11>{Exzess: Werte entsprechend der Kantenkapazit\"at abz\"uglich bereits vorhandener Fl\"usse}
-\end{frame}
-
-\begin{frame}{Flussprobleme}
-	\begin{itemize}
-		\visible<1->{\item Schwierigeit im Erkennen der Aufgaben}
-		\visible<2->{\item Seit 2013 vermehrtes Vorkommen in Contests}
-		\only<2>{\item[] Decider-Problem}
-	\end{itemize}
+	\only<1-2>{
+		\begin{block}{\only<1-2>{Gegeben gerichteter Graph}}
+				\only<2>{s: source \newline t: sink}
+		\end{block} 	
+	}
+	\only<3-11>{
+	\begin{block}{Fluss}
+		\only<3>{Kapazit\"atskonfirmit\"at}
+		\only<4>{Flusserhaltung}
+		\only<5>{Wert eines s-t-Flusses}
+		\only<9>{
+			Kapazit\"atskonfirmit\"at \newline
+			Flusserhaltung\newline 
+			Wert eines s-t-Flusses}
+		\only<11>{Exzess: Werte entsprechend der Kantenkapazit\"at abz\"uglich bereits vorhandener Fl\"usse}
+	\end{block} 
+	}
 \end{frame}
 
 \section{Max-Flow Algorithmen}
