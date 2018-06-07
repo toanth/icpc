@@ -79,10 +79,6 @@
 	\titlepage
 \end{frame}
 
-%table of contents
-\begin{frame}{Outline/Gliederung}
-\tableofcontents
-\end{frame}
 
 \section{Einf\"uhrung}
 \begin{frame}{Einf\"uhrung}
@@ -660,7 +656,7 @@ d.h. $\forall e_{1} = \{u_{1}, v_{1}\}, e_{2} = \{u_{2}, v_{2}\} \in M, e_{1} \n
 \end{block}
 \end{frame}
 
-\begin{frame}{Beispiel: Matching}
+\begin{frame}{Beispiel: Matching (\textit{nicht bipartit})}
 \begin{center}
 \begin{tikzpicture}[auto, thick]
 
@@ -893,7 +889,7 @@ d.h. $\forall \{v, w\} = e \in E: \exists u \in U: u \in e$.
 \end{itemize}
 \item Sei $G$ \textit{bipartit} mit $V = A \cupdot B$. Dann: $G$ hat \textit{perfektes Matching} $\Leftrightarrow \forall S \subset A: |N(S)| \geq |S|$
 (Wobei die Nachbarn $N(S)$ alle zu einem Knoten $s \in S$ adjazenten Knoten sind).
-\item Es gibt asymptotisch bessere Algorithmen zum Finden maximaler Fl\"usse, zum Beispiel \textit{Dinitz} ($\mathcal{O}(|V|^{2} * |E|)$ oder Push-Relabel-Algorithmen
+\item Es gibt asymptotisch bessere Algorithmen zum Finden maximaler Fl\"usse, zum Beispiel \textit{Dinitz} ($\mathcal{O}(|V|^{2} * |E|)$) oder Push-Relabel-Algorithmen
 \end{itemize}
 \end{frame}
 
