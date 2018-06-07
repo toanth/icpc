@@ -267,9 +267,13 @@ Frage: Wie kann $P$ gefunden werden?
 \begin{block}{Min-Cut}
 
 \begin{itemize}
-\item Definiere Schnitt \(C = (S-Komponente, T-Komponente)\) als Partition von \(V \in G \), wobei \(s \in S-Komponente\) und \(t \in T-Komponente\) 
-\item Weiter sei die Schnittmenge \(c = \{(u, v) \in E | u \in S-Komponente \land v \in T-Komponente\}\)
-\item W\"ahle \(c\) so, dass Max Flow von \(s\) nach \(t\) 0 ist, f\"ur \(E'=E\setminus c\) 
+\item Definiere Schnitt \(C = (S, T)\) als Partition von \(V\), wobei \(s \in S\) und \(t \in T\) 
+\item $c: E \to \mathbb{R}^+$ eine Kostenfunktion.
+\item Weiter sei die Schnittmenge \(cs = \{(u, v) \in E | u \in S \land v \in T\}\)
+\item Minimiere nun: 
+\begin{equation*}
+	\displaystyle \sum_{e\in cs}^{} c(e)
+\end{equation*} 
 \end{itemize}
 \end{block}
 \end{frame}
@@ -277,7 +281,7 @@ Frage: Wie kann $P$ gefunden werden?
 \begin{frame}{Max-Flow-Min-Cut-Theorem}
 \begin{block}{Max-Flow-Min-Cut-Theorem}
 \begin{itemize}
-\item Ein maximaler Fluss im Netzwerk hat genau den Wert eines minimalen Schnitts.
+\item Ein maximaler Fluss hat genau den Wert eines minimalen Schnitts.
 \end{itemize}
 \end{block}
 \end{frame}
