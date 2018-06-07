@@ -139,7 +139,7 @@
 	
 	\centering
 	\only<1>{Gegeben gerichteter Graph}
-	\only<2>{s: source, t:sink}
+	\only<2>{s: source, t: sink}
 	\only<3>{Fluss}
 	\only<4>{Flusserhaltung} 
 	\only<5>{Wert eines s-t-Flusses}
@@ -149,8 +149,8 @@
 \begin{frame}{Flussprobleme}
 	\begin{itemize}
 		\visible<1->{\item Schwierigeit im Erkennen der Aufgaben}
-		\visible<2->{\item Seit 2013 vermehrtes vorkommen in contests}
-		\only<2>{\item[] decider Problem}
+		\visible<2->{\item Seit 2013 vermehrtes Vorkommen in Contests}
+		\only<2>{\item[] Decider-Problem}
 	\end{itemize}
 \end{frame}
 
@@ -159,33 +159,33 @@
 Idee:
 \begin{itemize}
 	\item Starte mit dem leeren Fluss
-	\item Bestimme erweiternden Pfad (augmenting path) P
+	\item Bestimme erweiternden Pfad (augmenting path) $P$
 	\begin{itemize}
 		\item[$\Rightarrow$] Ein erweiternder Pfad ist ein einfacher Pfad, der nur Kanten mit positiver Kapazit\"at enth\"alt
 	\end{itemize}
-	\item Erweitere die L\"osung um P
-	\item Wiederhole so oft, wie es einen passenden Pfad P gibt 
+	\item Erweitere die L\"osung um $P$
+	\item Wiederhole so oft, wie es einen passenden Pfad $P$ gibt 
 \end{itemize} 
 \vspace{5mm}
 \pause 
-Frage: Wie kann P gefunden werden?
+Frage: Wie kann $P$ gefunden werden?
 \end{frame}
 
 \subsection{Ford-Fulkerson}
 \begin{frame}{Ford-Fulkerson Algorithmus}
 \begin{itemize}
-	\item Greedy Algorithmus ver\"offentlicht in 1956 von L. R. Ford, Jr. und D. R. Fulkerson
-	\item Verwendet Tiefensuche um den erweiternden Pfad P zu bestimmen
-	\item Die L\"osung wird um P erweitert indem, 
+	\item Greedy-Algorithmus, ver\"offentlicht 1956 von L. R. Ford, Jr. und D. R. Fulkerson
+	\item Verwendet Tiefensuche, um den erweiternden Pfad $P$ zu bestimmen
+	\item Die L\"osung wird um $P$ erweitert, indem
 	\begin{itemize}
 		\pause
-		\item die geringste Kapazit\"at f der Kanten in P bestimmt wird
+		\item die geringste Kapazit\"at $f$ der Kanten in $P$ bestimmt wird
 		\pause
-		\item die Kapazit\"aten aller Kanten in P um f verringert werden
+		\item die Kapazit\"aten aller Kanten in $P$ um $f$ verringert werden
 		\pause
-		\item die Kapazit\"aten aller Gegenkanten um f erh\"oht werden
+		\item die Kapazit\"aten aller Gegenkanten um $f$ erh\"oht werden
 		\pause
-		\item der maximale Fluss um f erh\"oht wird
+		\item der maximale Fluss um $f$ erh\"oht wird
 	\end{itemize}  
 \end{itemize}
 \end{frame}
@@ -209,7 +209,7 @@ Frage: Wie kann P gefunden werden?
 \end{figure}
 \begin{itemize}
 	\item Im Worst-Case wird der maximale Fluss pro Iteration nur um 1 erh\"oht
-	\item[$\Rightarrow$]  Laufzeit in $\mathcal O(|f^*|\cdot |E|)$, wobei $|f^*|$ der Wert des maximalen Flusses beschreibt
+	\item[$\Rightarrow$]  Laufzeit in $\mathcal O(|f^*|\cdot |E|)$, wobei $|f^*|$ den Wert des maximalen Flusses beschreibt
 	\item Deshalb \textbf{nicht} f\"ur ICPC-Aufgaben geeignet!
 \end{itemize}
 \end{frame}
@@ -218,8 +218,8 @@ Frage: Wie kann P gefunden werden?
 \begin{frame}{Edmonds-Karp Algorithmus}
 \begin{itemize}
 \item 1972 von J. Edmonds und R. M. Karp ver\"offentlicht
-\item Verwendet Breitensuche um den k\"urzesten erweiternden Pfad P zu bestimmen
-\item Erweiterung der L\"osung um P analog zu Ford-Fulkerson
+\item Verwendet Breitensuche, um den k\"urzesten erweiternden Pfad $P$ zu bestimmen
+\item Erweiterung der L\"osung um $P$ analog zu Ford-Fulkerson
 \item Die L\"ange des erweiternden Pfades ist monoton steigend
 \item Es sind maximal $|V|\cdot |E|$ Iterationen notwendig
 \item[$\Rightarrow$] Laufzeit in $\mathcal O(|V| \cdot |E|^2)$
@@ -257,7 +257,7 @@ Frage: Wie kann P gefunden werden?
 	\item In Adjazenzliste neben Zielknoten auch Kapazit\"at und Verweis auf die R\"uckkante speichern
 	\item Nicht vorhandene R\"uckkanten mit 0 initialisieren und dem Graphen hinzuf\"ugen
 	\item Bei der Breitensuche nur Kanten mit positiver Kapazit\"at ber\"ucksichtigen
-	\item Breitensuche abbrechen, sobald t erreicht wurde
+	\item Breitensuche abbrechen, sobald $t$ erreicht wurde
 \end{itemize}
 \end{frame}
 
@@ -430,8 +430,8 @@ Frage: Wie kann P gefunden werden?
 
 \begin{frame}{Modellierung - Beispiel}
 \begin{itemize}
-\item Situation: Die Titanic ist gesunken. Es soll ermittelt werden wie viele Menschen gerettet werden k\"onnen.
-\item Eingabe: X, Y, P mit X,Y Dimension der Fl\"ache (\(1 \leq X,Y \leq 30\)) und P (\(P \leq 10\)) die Anzahl von Personen, welche gleichzeitig auf ein Holzbrett k\"onnen.
+\item Situation: Die Titanic ist gesunken. Es soll ermittelt werden, wie viele Menschen gerettet werden k\"onnen.
+\item Eingabe: $X$, $Y$, $P$ mit $X$,$Y$ Dimension der Fl\"ache (\(1 \leq X,Y \leq 30\)) und $P$ (\(P \leq 10\)) die Anzahl von Personen, welche gleichzeitig auf ein Holzbrett k\"onnen.
 \end{itemize}
 \begin{center}
 \begin{tabular}{c|l}
@@ -595,9 +595,9 @@ Symbol & Bedeutung \\
 sodass zwischen den Knoten innerhalb der Teilmengen keine Kanten existieren.
 \end{itemize}
 \end{block}
-%\end{frame}
+\end{frame}
 
-%\begin{frame}{Bipartiter Graph}
+\begin{frame}{Bipartiter Graph}
 \begin{center}
 \begin{tikzpicture}[auto, thick]
 \node[state] (1) at (1, 1) {};
