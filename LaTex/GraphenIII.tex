@@ -600,13 +600,13 @@ sodass zwischen den Knoten innerhalb der Teilmengen keine Kanten existieren.
 \begin{frame}{Bipartiter Graph}
 \begin{center}
 \begin{tikzpicture}[auto, thick]
-\node[state] (1) at (1, 1) {};
-\node[state] (2) at (3, 1) {};
-\node[state] (3) at (5, 1) {};
-\node[state] (4) at (7, 1) {};
-\node[state] (5) at (2, 4) {};
-\node[state] (6) at (4, 4) {};
-\node[state] (7) at (6, 4) {};
+\node[state] (1) at (1, 1) {$a_{1}$};
+\node[state] (2) at (3, 1) {$a_{2}$};
+\node[state] (3) at (5, 1) {$a_{3}$};
+\node[state] (4) at (7, 1) {$a_{4}$};
+\node[state] (5) at (2, 4) {$b_{1}$};
+\node[state] (6) at (4, 4) {$b_{2}$};
+\node[state] (7) at (6, 4) {$b_{3}$};
 
 \path
 (1) edge[-] node {} (5)
@@ -735,13 +735,13 @@ d.h. $\forall e_{1} = \{u_{1}, v_{1}\}, e_{2} = \{u_{2}, v_{2}\} \in M, e_{1} \n
 \begin{frame}{Modellierung}
 \begin{center}
 \begin{tikzpicture}[auto, thick]
-\node[state] (2) at (3, 1) {};
-\node[state] (3) at (3, 3) {};
-\node[state] (4) at (3, 5) {};
-\node[state] (5) at (3, 7) {};
-\node[state] (6) at (6, 2) {};
-\node[state] (7) at (6, 4) {};
-\node[state] (8) at (6, 6) {};
+\node[state] (2) at (3, 1) {$a_{4}$};
+\node[state] (3) at (3, 3) {$a_{3}$};
+\node[state] (4) at (3, 5) {$a_{2}$};
+\node[state] (5) at (3, 7) {$a_{1}$};
+\node[state] (6) at (6, 2) {$b_{3}$};
+\node[state] (7) at (6, 4) {$b_{2}$};
+\node[state] (8) at (6, 6) {$b_{1}$};
 
 \visible<2->{
 \node[state, fill=lightgray] (1) at (1, 4) {s};
