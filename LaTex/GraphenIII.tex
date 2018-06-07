@@ -686,7 +686,7 @@ d.h. $\forall e_{1} = \{u_{1}, v_{1}\}, e_{2} = \{u_{2}, v_{2}\} \in M, e_{1} \n
 
 \begin{block}{Perfektes Matching}
 \begin{itemize}
-\item Ein Matching $M$ hei{\ss}t \textbf{perfekt}, falls $2 * |M| = |V|$, d.h. jeder Knoten $v \in V$ kommt in $M$ vor.
+\item Ein Matching $M$ hei{\ss}t \textbf{perfekt}, falls $2 \cdot |M| = |V|$, d.h. jeder Knoten $v \in V$ kommt in $M$ vor.
 \end{itemize}
 \end{block}
 \end{frame}
@@ -826,7 +826,7 @@ d.h. $\forall e_{1} = \{u_{1}, v_{1}\}, e_{2} = \{u_{2}, v_{2}\} \in M, e_{1} \n
 	\item Berechnen des maximalen Flusses von $s$ nach $t$.
 \end{itemize}
 \item Kanten des \textit{maximalen Flusses} zwischen $A$ und $B$ entsprechen \textit{kardinalit\"atsmaximalen Matching}.
-\item Laufzeit Edmonds-Karp (in diesem Fall): $\mathcal{O}(|E| * |V|)$
+\item Laufzeit Edmonds-Karp (in diesem Fall): $\mathcal{O}(|E| \cdot |V|)$
 \end{itemize}
 \end{frame}
 
@@ -922,9 +922,9 @@ d.h. $\forall \{v, w\} = e \in E: \exists u \in U: u \in e$.
 \begin{itemize}
 	\item Damit zum Beispiel bipartit: Jeder Baum
 \end{itemize}
-\item Sei $G$ \textit{bipartit} mit $V = A \cdot B$. Dann: $G$ hat \textit{perfektes Matching} $\Leftrightarrow \forall S \subset A: |N(S)| \geq |S|$
+\item Sei $G$ \textit{bipartit} mit $V = A \cupdot B$. Dann: $G$ hat \textit{perfektes Matching} $\Leftrightarrow \forall S \subset A: |N(S)| \geq |S|$
 (Wobei die Nachbarn $N(S)$ alle zu einem Knoten $s \in S$ adjazenten Knoten sind).
-\item Es gibt asymptotisch bessere Algorithmen zum Finden maximaler Fl\"usse, zum Beispiel \textit{Dinitz} ($\mathcal{O}(|V|^{2} * |E|)$) oder Push-Relabel-Algorithmen
+\item Es gibt asymptotisch bessere Algorithmen zum Finden maximaler Fl\"usse, zum Beispiel \textit{Dinitz} ($\mathcal{O}(|V|^{2} \cdot |E|)$) oder Push-Relabel-Algorithmen
 \end{itemize}
 \end{frame}
 
