@@ -79,9 +79,22 @@
 	\titlepage
 \end{frame}
 
-
 \section{Einf\"uhrung}
-\begin{frame}{Einf\"uhrung}
+
+\subsection{Idee: Flussnetzwerk}
+\begin{frame}{Idee: Flussnetzwerke}
+	\begin{block}{Idee}
+		\begin{itemize}
+			\visible<1->{\item Transport von Material von einer Quelle zu einer Senke}
+			\visible<2->{\item Materialfluss durch Kan\"ale}  
+			\visible<3->{\item Mehrere Kan\"ale mit verschiedenen Kapazit\"aten}
+			\visible<4->{\item Kanten k\"onnen sich verzweigen und zusammenf\"ugen}
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\subsection{Einf\"uhrung Flussnetzwerk}
+\begin{frame}{Einf\"uhrung Flussnetzwerk}
 	\begin{figure}
 		\centering
 		\begin{tikzpicture}[node distance=2cm, auto, thick]
@@ -124,30 +137,35 @@
 				(s) edge[->, bend left = 10, red, right] node {} (q1);}
 			\visible<11->{
 				\path
-				(q0) edge[->, bend right = 10,  red, right] node {35} (t)
+				(q0) edge[->, bend right = 10,  red, right] node {35} (t);}
+			\visible<12->{
+				\path
 				(t) edge[->, bend left = 10,  red, below left] node {60} (s)
 				(s) edge[->, bend left = 10, red, right] node {40} (q1);}
-			\visible<12->{
+			\visible<13->{
 				\path (q0) edge[->, dashed, red] node {35} (q1);}
 			
 		\end{tikzpicture}		
 	\end{figure}
 	
 	\centering
-	\only<1>{Gegeben gerichteter Graph}
-	\only<2>{s: source, t: sink}
-	\only<3>{Fluss}
-	\only<4>{Flusserhaltung} 
-	\only<5>{Wert eines s-t-Flusses}
-	\only<11>{Exzess: Werte entsprechend der Kantenkapazit\"at abz\"uglich bereits vorhandener Fl\"usse}
-\end{frame}
-
-\begin{frame}{Flussprobleme}
-	\begin{itemize}
-		\visible<1->{\item Schwierigeit im Erkennen der Aufgaben}
-		\visible<2->{\item Seit 2013 vermehrtes Vorkommen in Contests}
-		\only<2>{\item[] Decider-Problem}
-	\end{itemize}
+	\only<1-2>{
+		\begin{block}{\only<1-2>{Gegeben gerichteter Graph}}
+				\only<2>{s: source \newline t: sink}
+		\end{block} 	
+	}
+	\only<3-11>{
+	\begin{block}{Fluss}
+		\only<3>{Kapazit\"atskonfirmit\"at}
+		\only<4>{Flusserhaltung}
+		\only<5>{Wert eines s-t-Flusses}
+		\only<9>{
+			Kapazit\"atskonfirmit\"at \newline
+			Flusserhaltung\newline 
+			Wert eines s-t-Flusses}
+		\only<11>{Exzess: Werte entsprechend der Kantenkapazit\"at abz\"uglich bereits vorhandener Fl\"usse}
+	\end{block} 
+	}
 \end{frame}
 
 \section{Max-Flow Algorithmen}
@@ -172,6 +190,11 @@ Frage: Wie kann $P$ gefunden werden?
 \begin{itemize}
 	\item Greedy-Algorithmus, ver\"offentlicht 1956 von L. R. Ford, Jr. und D. R. Fulkerson
 	\item Verwendet Tiefensuche, um den erweiternden Pfad $P$ zu bestimmen
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ford-Fulkerson Algorithmus}
+\begin{itemize}
 	\item Die L\"osung wird um $P$ erweitert, indem
 	\begin{itemize}
 		\pause
@@ -183,6 +206,14 @@ Frage: Wie kann $P$ gefunden werden?
 		\pause
 		\item der maximale Fluss um $f$ erh\"oht wird
 	\end{itemize}  
+	\pause
+	\item Kapazit\"aten der Gegenkanten werden erh\"oht, um Korrektheit des Algorithmus zu sichern
+	\pause
+	\begin{itemize}
+		\item[$\Rightarrow$] Dies erm\"oglicht, dass diese Gegenkanten in zuk\"unftigen erweiternden Pfaden enthalten sind
+		\pause
+		\item[$\Rightarrow$] Zuk\"unftige Iterationen k\"onnen den f\"alschlicherweise genutzten Fluss einer Vorw\"artskante wieder (teilweise) umkehren
+	\end{itemize}
 \end{itemize}
 \end{frame}
 
@@ -263,9 +294,13 @@ Frage: Wie kann $P$ gefunden werden?
 \begin{block}{Min-Cut}
 
 \begin{itemize}
-\item Definiere Schnitt \(C = (S-Komponente, T-Komponente)\) als Partition von \(V \in G \), wobei \(s \in S-Komponente\) und \(t \in T-Komponente\) 
-\item Weiter sei die Schnittmenge \(c = \{(u, v) \in E | u \in S-Komponente \land v \in T-Komponente\}\)
-\item W\"ahle \(c\) so, dass Max Flow von \(s\) nach \(t\) 0 ist, f\"ur \(E'=E\setminus c\) 
+\item Definiere Schnitt \(C = (S, T)\) als Partition von \(V\), wobei \(s \in S\) und \(t \in T\) 
+\item $c: E \to \mathbb{R}^+$ eine Kostenfunktion.
+\item Weiter sei die Schnittmenge \(cs = \{(u, v) \in E | u \in S \land v \in T\}\)
+\item Minimiere nun: 
+\begin{equation*}
+	\displaystyle \sum_{e\in cs}^{} c(e)
+\end{equation*} 
 \end{itemize}
 \end{block}
 \end{frame}
@@ -273,7 +308,7 @@ Frage: Wie kann $P$ gefunden werden?
 \begin{frame}{Max-Flow-Min-Cut-Theorem}
 \begin{block}{Max-Flow-Min-Cut-Theorem}
 \begin{itemize}
-\item Ein maximaler Fluss im Netzwerk hat genau den Wert eines minimalen Schnitts.
+\item Ein maximaler Fluss hat genau den Wert eines minimalen Schnitts.
 \end{itemize}
 \end{block}
 \end{frame}
@@ -887,7 +922,7 @@ d.h. $\forall \{v, w\} = e \in E: \exists u \in U: u \in e$.
 \begin{itemize}
 	\item Damit zum Beispiel bipartit: Jeder Baum
 \end{itemize}
-\item Sei $G$ \textit{bipartit} mit $V = A \cupdot B$. Dann: $G$ hat \textit{perfektes Matching} $\Leftrightarrow \forall S \subset A: |N(S)| \geq |S|$
+\item Sei $G$ \textit{bipartit} mit $V = A \cdot B$. Dann: $G$ hat \textit{perfektes Matching} $\Leftrightarrow \forall S \subset A: |N(S)| \geq |S|$
 (Wobei die Nachbarn $N(S)$ alle zu einem Knoten $s \in S$ adjazenten Knoten sind).
 \item Es gibt asymptotisch bessere Algorithmen zum Finden maximaler Fl\"usse, zum Beispiel \textit{Dinitz} ($\mathcal{O}(|V|^{2} * |E|)$) oder Push-Relabel-Algorithmen
 \end{itemize}
