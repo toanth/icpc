@@ -643,7 +643,7 @@ d.h. $\forall e_{1} = \{u_{1}, v_{1}\}, e_{2} = \{u_{2}, v_{2}\} \in M, e_{1} \n
 \end{block}
 \end{frame}
 
-\begin{frame}{Perfektes Matching}
+\begin{frame}{Mehr Matchings}
 \begin{block}{Kardinalit\"atsmaximales Matching}
 \begin{itemize}
 \item Ein Matching $M \subseteq E$ hei{\ss }t \textbf{kardinalit\"atsmaximales Matching}, wenn es kein gr\"o{\ss}eres Matching gibt.
@@ -660,10 +660,13 @@ d.h. $\forall e_{1} = \{u_{1}, v_{1}\}, e_{2} = \{u_{2}, v_{2}\} \in M, e_{1} \n
 \end{block}
 \end{frame}
 
-\begin{frame}{Maximales Matching}
+\begin{frame}{Beispiel: Matching}
 \begin{center}
 \begin{tikzpicture}[auto, thick]
+
+\visible<1-2>{
 \node[state] (1) at (3, 7) {};
+}
 \node[state] (2) at (1, 5) {};
 \node[state] (3) at (3, 5) {};
 \node[state] (4) at (5, 5) {};
@@ -672,94 +675,47 @@ d.h. $\forall e_{1} = \{u_{1}, v_{1}\}, e_{2} = \{u_{2}, v_{2}\} \in M, e_{1} \n
 \node[state] (7) at (5, 3) {};
 
 \path
-(1) edge[-] node {} (2)
-(1) edge[-] node {} (3)
-(1) edge[-] node {} (4)
 (2) edge[-] node {} (5)
 (2) edge[-] node {} (6)
 (3) edge[-] node {} (5)
 (3) edge[-] node {} (6)
 (4) edge[-] node {} (7)
-(5) edge[-, thick, color=red] node {} (6)
-(6) edge[-] node {} (7)
-(1) edge[-, thick, color=red] node {} (7);
-
-\end{tikzpicture}
-\end{center}
-\end{frame}
-
-\begin{frame}{Kardinalit\"atsmaximales Matching}
-\begin{center}
-\begin{tikzpicture}[auto, thick]
-\node[state] (1) at (3, 7) {};
-\node[state] (2) at (1, 5) {};
-\node[state] (3) at (3, 5) {};
-\node[state] (4) at (5, 5) {};
-\node[state] (5) at (1, 3) {};
-\node[state] (6) at (3, 3) {};
-\node[state] (7) at (5, 3) {};
-
-\path
-(1) edge[-] node {} (2)
-(1) edge[-] node {} (3)
-(1) edge[-] node {} (4)
-(2) edge[-, thick, color=red] node {} (5)
-(2) edge[-] node {} (6)
-(3) edge[-] node {} (5)
-(3) edge[-, thick, color=red] node {} (6)
-(4) edge[-, thick, color=red] node {} (7)
 (5) edge[-] node {} (6)
-(6) edge[-] node {} (7)
+(6) edge[-] node {} (7);
+
+\visible<1-2>{ \path
 (1) edge[-] node {} (7);
+}
+
+\only<1>{ \path
+(5) edge[-, line width=1.5pt, color=red] node {} (6)
+(1) edge[-, line width=1.5pt, color=red] node {} (7);
+}
+\visible<2-4>{ \path
+(4) edge[-, line width=1.5pt, color=red] node {} (7);
+}
+\visible<2-3>{ \path
+(2) edge[-, line width=1.5pt, color=red] node {} (5)
+(3) edge[-, line width=1.5pt, color=red] node {} (6);
+}
+\only<4>{ \path
+(2) edge[-, line width=1.5pt, color=red] node {} (6)
+(3) edge[-, line width=1.5pt, color=red] node {} (5);
+}
+\visible<1-2>{ \path
+(1) edge[-] node {} (2)
+(1) edge[-] node {} (3)
+(1) edge[-] node {} (4);
+}
 
 \end{tikzpicture}
 \end{center}
-\end{frame}
 
-\begin{frame}{Perfektes Matching}
-\begin{center}
-\begin{tikzpicture}[auto, thick]
-\node[state] (2) at (1, 5) {};
-\node[state] (3) at (3, 5) {};
-\node[state] (4) at (5, 5) {};
-\node[state] (5) at (1, 3) {};
-\node[state] (6) at (3, 3) {};
-\node[state] (7) at (5, 3) {};
-
-\path
-(2) edge[-, thick, color=red] node {} (5)
-(2) edge[-] node {} (6)
-(3) edge[-] node {} (5)
-(3) edge[-, thick, color=red] node {} (6)
-(4) edge[-, thick, color=red] node {} (7)
-(5) edge[-] node {} (6)
-(6) edge[-] node {} (7);
-
-\end{tikzpicture}
-\end{center}
-\end{frame}
-
-\begin{frame}{Perfektes Matching}
-\begin{center}
-\begin{tikzpicture}[auto, thick]
-\node[state] (2) at (1, 5) {};
-\node[state] (3) at (3, 5) {};
-\node[state] (4) at (5, 5) {};
-\node[state] (5) at (1, 3) {};
-\node[state] (6) at (3, 3) {};
-\node[state] (7) at (5, 3) {};
-
-\path
-(2) edge[-] node {} (5)
-(2) edge[-, thick, color=red] node {} (6)
-(3) edge[-, thick, color=red] node {} (5)
-(3) edge[-] node {} (6)
-(4) edge[-, thick, color=red] node {} (7)
-(5) edge[-] node {} (6)
-(6) edge[-] node {} (7);
-
-\end{tikzpicture}
-\end{center}
+\centering
+\only<1>{Maximales Matching}
+\only<2>{Kardinalit\"atsmaximales Matching}
+\only<3>{Perfektes Matching}
+\only<4>{anderes perfektes Matching}
 \end{frame}
 
 \begin{frame}{Beispiel}
@@ -787,6 +743,11 @@ d.h. $\forall e_{1} = \{u_{1}, v_{1}\}, e_{2} = \{u_{2}, v_{2}\} \in M, e_{1} \n
 \node[state] (7) at (6, 4) {};
 \node[state] (8) at (6, 6) {};
 
+\visible<2->{
+\node[state, fill=lightgray] (1) at (1, 4) {s};
+\node[state, fill=lightgray] (9) at (8, 4) {t};
+}
+
 \path
 (2) edge[->] node {} (6)
 (3) edge[->] node {} (6)
@@ -798,76 +759,28 @@ d.h. $\forall e_{1} = \{u_{1}, v_{1}\}, e_{2} = \{u_{2}, v_{2}\} \in M, e_{1} \n
 (5) edge[->] node {} (7)
 (5) edge[->] node {} (8);
 
-\end{tikzpicture}
-\end{center}
-\end{frame}
-
-\begin{frame}{Modellierung}
-\begin{center}
-\begin{tikzpicture}[auto, thick]
-\node[state, fill=lightgray] (1) at (1, 4) {s};
-\node[state] (2) at (3, 1) {};
-\node[state] (3) at (3, 3) {};
-\node[state] (4) at (3, 5) {};
-\node[state] (5) at (3, 7) {};
-\node[state] (6) at (6, 2) {};
-\node[state] (7) at (6, 4) {};
-\node[state] (8) at (6, 6) {};
-\node[state, fill=lightgray] (9) at (8, 4) {t};
-
-\path
+\only<2>{ \path
 (1) edge[->] node {} (2)
 (1) edge[->] node {} (3)
 (1) edge[->] node {} (4)
 (1) edge[->] node {} (5)
-(2) edge[->] node {} (6)
-(3) edge[->] node {} (6)
-(3) edge[->] node {} (8)
-(4) edge[->] node {} (6)
-(4) edge[->] node {} (7)
-(4) edge[->] node {} (8)
-(5) edge[->] node {} (6)
-(5) edge[->] node {} (7)
-(5) edge[->] node {} (8)
 (6) edge[->] node {} (9)
 (7) edge[->] node {} (9)
 (8) edge[->] node {} (9);
+}
 
-\end{tikzpicture}
-\end{center}
-\end{frame}
-
-\begin{frame}{Modellierung}
-\begin{center}
-\begin{tikzpicture}[auto, thick]
-\node[state, fill=lightgray] (1) at (1, 4) {s};
-\node[state] (2) at (3, 1) {};
-\node[state] (3) at (3, 3) {};
-\node[state] (4) at (3, 5) {};
-\node[state] (5) at (3, 7) {};
-\node[state] (6) at (6, 2) {};
-\node[state] (7) at (6, 4) {};
-\node[state] (8) at (6, 6) {};
-\node[state, fill=lightgray] (9) at (8, 4) {t};
-
-\path
+\only<3>{ \path
 (1) edge[->] node {} (2)
 (1) edge[->, color=red] node {} (3)
 (1) edge[->, color=red] node {} (4)
 (1) edge[->, color=red] node {} (5)
-(2) edge[->] node {} (6)
-(3) edge[->, color=red] node {} (6)
-(3) edge[->] node {} (8)
-(4) edge[->] node {} (6)
-(4) edge[->, color=red] node {} (7)
-(4) edge[->] node {} (8)
-(5) edge[->] node {} (6)
-(5) edge[->] node {} (7)
-(5) edge[->, color=red] node {} (8)
+(3) edge[->, line width=1.5pt, color=red] node {} (6)
+(4) edge[->, line width=1.5pt, color=red] node {} (7)
+(5) edge[->, line width=1.5pt, color=red] node {} (8)
 (6) edge[->, color=red] node {} (9)
 (7) edge[->, color=red] node {} (9)
 (8) edge[->, color=red] node {} (9);
-
+}
 \end{tikzpicture}
 \end{center}
 \end{frame}
@@ -942,8 +855,8 @@ d.h. $\forall \{v, w\} = e \in E: \exists u \in U: u \in e$.
 
 \path
 (1) edge[-] node {} (3)
-(1) edge[-, color=red] node {$m_{1}$} (4)
-(2) edge[-, color=red] node {$m_{2}$} (5)
+(1) edge[-, line width=1.5pt, color=red] node {$m_{1}$} (4)
+(2) edge[-, line width=1.5pt, color=red] node {$m_{2}$} (5)
 (2) edge[-] node {} (4)
 (1) edge[-] node {} (5);
 
@@ -998,7 +911,7 @@ dass die Summe beider Elemente eines Paares immer eine Primzahl ist.
 \item Erkenntnis: Alle Primzahlen m\"ussen als Summe einer geraden und einer ungeraden Zahl zustande kommen.
 \item Damit: Bipartiter Graph, Kante zwischen $a$ und $b$, falls $a + b$ eine Primzahl ist.
 \item Falls beide Mengen unterschiedlich gro{\ss} sind, gibt es keine L\"osung
-\item Ansonsten: Gehen alle Nachbarn $n'$ von $n_{0}$ durch und \"uberpr\"ufe, ob $G - \{n_{0}, n'\}$ ein \textit{perfektes Matching} hat.
+\item Ansonsten: Gehe alle Nachbarn $n'$ von $n_{0}$ durch und \"uberpr\"ufe, ob $G - \{n_{0}, n'\}$ ein \textit{perfektes Matching} hat.
 \end{itemize}
 \end{frame}
 
