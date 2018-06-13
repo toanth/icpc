@@ -260,7 +260,7 @@ Frage: Wie kann $P$ gefunden werden?
 		$maxFlow = 0 $ \;
 		\Do{P exists}{
 			find augmenting path P using BFS\;
-			$ f = min \{c(u,v) | (u,v) \in P\}$\;
+			$ f = min \{c(u,v) \mid (u,v) \in P\}$\;
 			\ForEach{$(u,v) \in P$}{
 				 c(u,v) -= f  \;
 				 c(v,u) += f  \;
@@ -296,7 +296,7 @@ Frage: Wie kann $P$ gefunden werden?
 \begin{itemize}
 \item Definiere Schnitt \(C = (S, T)\) als Partition von \(V\), wobei \(s \in S\) und \(t \in T\) 
 \item $c: E \to \mathbb{R}^+$ eine Kostenfunktion.
-\item Weiter sei die Schnittmenge \(cs = \{(u, v) \in E | u \in S \land v \in T\}\)
+\item Weiter sei die Schnittmenge \(cs = \{(u, v) \in E \mid u \in S \land v \in T\}\)
 \item Minimiere nun: 
 \begin{equation*}
 	\displaystyle \sum_{e\in cs}^{} c(e)
@@ -932,7 +932,7 @@ d.h. $\forall \{v, w\} = e \in E: \exists u \in U: u \in e$.
 \begin{itemize}
 \item Definition: \textit{Complete prime pairing}: Teile Liste $M$ von nat\"urlichen Zahlen so vollst\"andig in Paare auf,
 dass die Summe beider Elemente eines Paares immer eine Primzahl ist.
-\item Gegeben: Liste $N$ von paarweise unterschiedlichen Zahlen $n_{i} \in \mathbb{N}$.
+\item Gegeben: Liste $N$ von paarweise unterschiedlichen Zahlen $n_{i} \in \mathbb{N}_{+}$.
 \item Gesucht: Liste $M \subseteq N$, sodass: $\forall m \in M$:
 \begin{itemize}
 	\item  $\{m, n_{0}\}$ ist ein prime pair, d.h. $m + n_{0}$ ist prim
